@@ -27,3 +27,8 @@ output "deployment_policy_id" {
   value       = aws_iam_policy.deployment_policy.arn
   description = "IAM policy for deploying CloudFront distribution."
 }
+
+output "origin_path" {
+  value       = local.origin_path
+  description = "Origin path"
+}

@@ -51,3 +51,4 @@ No modules.
 | <a name="output_hosted_zone_id"></a> [hosted\_zone\_id](#output\_hosted\_zone\_id) | CDN Route 53 zone ID. |
 | <a name="output_id"></a> [id](#output\_id) | CDN distribution ID. |
 | <a name="output_oai_iam_arn"></a> [oai\_iam\_arn](#output\_oai\_iam\_arn) | Origin Access Identity pre-generated ARN that can be used in S3 bucket policies. |
+| <a name="output_origin_path"></a> [origin\_path](#output\_origin\_path) | Origin path |
