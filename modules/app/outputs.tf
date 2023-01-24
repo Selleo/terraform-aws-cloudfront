@@ -32,3 +32,13 @@ output "origin_path" {
   value       = local.origin_path
   description = "Origin path"
 }
+
+output "deployment_group" {
+  value       = aws_iam_group.deployment.name
+  description = "Deployment group name"
+}
+
+output "deployment_group_arn" {
+  value       = aws_iam_group.deployment.arn
+  description = "Deployment group ARN"
+}

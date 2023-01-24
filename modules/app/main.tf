@@ -134,3 +134,12 @@ data "aws_iam_policy_document" "this" {
     ]
   }
 }
+
+resource "aws_iam_group" "deployment" {
+  name = "cdn-deployment-${var.app_id}"
+}
+
+resource "aws_iam_group_policy_attachment" "deployment" {
+  group      = aws_iam_group.deployment.name
+  policy_arn = aws_iam_policy.deployment_policy.arn
+}
