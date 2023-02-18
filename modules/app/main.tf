@@ -1,6 +1,14 @@
 locals {
   origin_id   = "main"
-  origin_path = "/apps/${var.app_id}"
+  origin_path = "/${var.apps_folder}${var.app_id}"
+
+  tags = merge({
+    "terraform.module"    = "Selleo/terraform-aws-cloudfront"
+    "terraform.submodule" = "app"
+    "context.namespace"   = var.context.namespace
+    "context.stage"       = var.context.stage
+    "context.name"        = var.context.name
+  }, var.tags)
 }
 
 data "aws_s3_bucket" "apps" {
@@ -83,7 +91,7 @@ resource "aws_cloudfront_distribution" "this" {
     }
   }
 
-  tags = var.tags
+  tags = merge(local.tags, { "resource.group" = "network" })
 }
 
 resource "aws_cloudfront_origin_access_identity" "this" {

@@ -5,6 +5,16 @@ variable "app_id" {
   description = "Application ID and S3 folder"
 }
 
+variable "context" {
+  description = "Project context."
+
+  type = object({
+    namespace = string
+    stage     = string
+    name      = string
+  })
+}
+
 variable "aliases" {
   type        = list(string)
   description = "List of CNAMEs"
@@ -21,6 +31,11 @@ variable "s3_bucket" {
 }
 
 # optional
+
+variable "apps_folder" {
+  type        = "apps/"
+  description = "Folder where apps are stored, must end with /."
+}
 
 variable "tags" {
   type        = map(string)
