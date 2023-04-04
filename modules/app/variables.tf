@@ -33,8 +33,9 @@ variable "s3_bucket" {
 # optional
 
 variable "apps_folder" {
-  type        = "apps/"
+  type        = string
   description = "Folder where apps are stored, must end with /."
+  default     = "apps/"
 }
 
 variable "tags" {
