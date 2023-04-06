@@ -11,12 +11,16 @@ locals {
   }, var.tags)
 }
 
+resource "random_id" "prefix" {
+  byte_length = 4
+}
+
 data "aws_s3_bucket" "apps" {
   bucket = var.s3_bucket
 }
 
 resource "aws_cloudfront_distribution" "this" {
-  comment             = "Application ${var.app_id}"
+  comment             = "Application ${var.app_id}-${random_id.prefix.hex}"
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = var.default_root_object
@@ -95,11 +99,11 @@ resource "aws_cloudfront_distribution" "this" {
 }
 
 resource "aws_cloudfront_origin_access_identity" "this" {
-  comment = "Application ${var.app_id}"
+  comment = "Application ${var.app_id}-${random_id.prefix.hex}"
 }
 
 resource "aws_iam_policy" "deployment_policy" {
-  name   = "cdn-deployment-${var.app_id}"
+  name   = "cdn-deployment-${var.app_id}-${random_id.prefix.hex}"
   policy = data.aws_iam_policy_document.this.json
 }
 
@@ -144,7 +148,7 @@ data "aws_iam_policy_document" "this" {
 }
 
 resource "aws_iam_group" "deployment" {
-  name = "cdn-deployment-${var.app_id}"
+  name = "cdn-deployment-${var.app_id}-${random_id.prefix.hex}"
 }
 
 resource "aws_iam_group_policy_attachment" "deployment" {
