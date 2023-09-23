@@ -57,14 +57,8 @@ resource "aws_cloudfront_distribution" "this" {
     target_origin_id = local.origin_id
 
     response_headers_policy_id = var.response_headers_policy_id
-
-    forwarded_values {
-      query_string = false
-
-      cookies {
-        forward = "none"
-      }
-    }
+    origin_request_policy_id = var.origin_request_policy_id
+    cache_policy_id = var.cache_policy_id
 
     compress               = var.default_cache_behavior.compress
     viewer_protocol_policy = "redirect-to-https"

@@ -25,6 +25,11 @@ variable "bucket" {
   description = "Bucket name to create."
 }
 
+variable "cache_policy_id" {
+  type        = string
+  description = "The identifier for a cache policy."
+}
+
 # optional
 
 variable "tags" {
@@ -79,6 +84,12 @@ variable "default_cache_behavior" {
 variable "response_headers_policy_id" {
   type        = string
   description = "The identifier for a response headers policy."
+  default     = null
+}
+
+variable "origin_request_policy_id" {
+  type        = string
+  description = "The identifier for a origin request policy."
   default     = null
 }
 
