@@ -58,7 +58,7 @@ resource "aws_cloudfront_distribution" "this" {
 
     response_headers_policy_id = var.response_headers_policy_id
     origin_request_policy_id = var.origin_request_policy_id
-    cache_policy_id = var.cache_policy_id
+    cache_policy_id = aws_cloudfront_cache_policy.this.id
 
     compress               = var.default_cache_behavior.compress
     viewer_protocol_policy = "redirect-to-https"
@@ -175,6 +175,27 @@ data "aws_iam_policy_document" "bucket" {
       values = [
         aws_cloudfront_distribution.this.arn
       ]
+    }
+  }
+}
+
+resource "aws_cloudfront_cache_policy" "this" {
+  name    = "cdn-public-storage-${random_id.prefix.hex}"
+  comment = "Cache policy for Public Storage ${random_id.prefix.hex}"
+
+  min_ttl     = var.default_cache_behavior.min_ttl
+  default_ttl = var.default_cache_behavior.default_ttl
+  max_ttl     = var.default_cache_behavior.max_ttl
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    cookies_config {
+      cookie_behavior = "none"
+    }
+    headers_config {
+      header_behavior = "none"
+    }
+    query_strings_config {
+      query_string_behavior = "none"
     }
   }
 }
