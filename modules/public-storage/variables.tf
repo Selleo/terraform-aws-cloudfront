@@ -25,11 +25,6 @@ variable "bucket" {
   description = "Bucket name to create."
 }
 
-variable "cache_policy_id" {
-  type        = string
-  description = "The identifier for a cache policy."
-}
-
 # optional
 
 variable "tags" {
@@ -72,9 +67,9 @@ variable "default_cache_behavior" {
   default = {
     allowed_methods = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods  = ["GET", "HEAD"]
-    min_ttl         = 0
-    default_ttl     = 3600  # 1 hour
-    max_ttl         = 86400 # 1 day
+    min_ttl         = 1
+    default_ttl     = 86400  # 1 day
+    max_ttl         = 31536000 # 1 year
     compress        = true
   }
 
