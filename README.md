@@ -2,13 +2,6 @@
 
 Module for managing CDN distributions. Currently used for frontend apps deployment.
 
-## Development
-
-Generate docs:
-```
-terraform-docs markdown ./modules/app > ./modules/app/README.md
-```
-
 ## LICENSE
 
 See `LICENSE` file.
