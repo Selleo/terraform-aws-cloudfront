@@ -33,47 +33,11 @@ variable "tags" {
   default     = {}
 }
 
-variable "custom_error_responses" {
-  type = list(object({
-    error_code            = number
-    error_caching_min_ttl = number
-    response_code         = number
-    response_page_path    = string
-  }))
-
-  default = []
-
-  description = "List of custom error responses for distribution."
-}
-
 variable "certificate_minimum_protocol_version" {
   # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#minimum_protocol_version
   type        = string
   default     = "TLSv1.2_2019"
   description = "The minimum version of the SSL protocol that you want to use for HTTPS."
-}
-
-variable "default_cache_behavior" {
-  # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#default-cache-behavior-arguments
-  type = object({
-    allowed_methods = list(string),
-    cached_methods  = list(string),
-    min_ttl         = number
-    max_ttl         = number
-    default_ttl     = number
-    compress        = bool
-  })
-
-  default = {
-    allowed_methods = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods  = ["GET", "HEAD"]
-    min_ttl         = 1
-    default_ttl     = 86400  # 1 day
-    max_ttl         = 31536000 # 1 year
-    compress        = true
-  }
-
-  description = "Default cache behavior for this distribution"
 }
 
 variable "response_headers_policy_id" {
