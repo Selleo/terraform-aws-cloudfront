@@ -20,7 +20,6 @@
 | [aws_cloudfront_cache_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_cache_policy) | resource |
 | [aws_cloudfront_distribution.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
 | [aws_cloudfront_origin_access_control.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_control) | resource |
-| [aws_cloudfront_origin_access_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_identity) | resource |
 | [aws_iam_group.deployment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group) | resource |
 | [aws_iam_group_policy_attachment.deployment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy_attachment) | resource |
 | [aws_iam_policy.deployment_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -39,8 +38,6 @@
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | AWS ACM certificate ARN. | `string` | n/a | yes |
 | <a name="input_certificate_minimum_protocol_version"></a> [certificate\_minimum\_protocol\_version](#input\_certificate\_minimum\_protocol\_version) | The minimum version of the SSL protocol that you want to use for HTTPS. | `string` | `"TLSv1.2_2019"` | no |
 | <a name="input_context"></a> [context](#input\_context) | Project context. | <pre>object({<br>    namespace = string<br>    stage     = string<br>    name      = string<br>  })</pre> | n/a | yes |
-| <a name="input_custom_error_responses"></a> [custom\_error\_responses](#input\_custom\_error\_responses) | List of custom error responses for distribution. | <pre>list(object({<br>    error_code            = number<br>    error_caching_min_ttl = number<br>    response_code         = number<br>    response_page_path    = string<br>  }))</pre> | `[]` | no |
-| <a name="input_default_cache_behavior"></a> [default\_cache\_behavior](#input\_default\_cache\_behavior) | Default cache behavior for this distribution | <pre>object({<br>    allowed_methods = list(string),<br>    cached_methods  = list(string),<br>    min_ttl         = number<br>    max_ttl         = number<br>    default_ttl     = number<br>    compress        = bool<br>  })</pre> | <pre>{<br>  "allowed_methods": [<br>    "DELETE",<br>    "GET",<br>    "HEAD",<br>    "OPTIONS",<br>    "PATCH",<br>    "POST",<br>    "PUT"<br>  ],<br>  "cached_methods": [<br>    "GET",<br>    "HEAD"<br>  ],<br>  "compress": true,<br>  "default_ttl": 86400,<br>  "max_ttl": 31536000,<br>  "min_ttl": 1<br>}</pre> | no |
 | <a name="input_origin_request_policy_id"></a> [origin\_request\_policy\_id](#input\_origin\_request\_policy\_id) | The identifier for a origin request policy. | `string` | `null` | no |
 | <a name="input_price_class"></a> [price\_class](#input\_price\_class) | Cloudfront distribution's price class. | `string` | `"PriceClass_100"` | no |
 | <a name="input_response_headers_policy_id"></a> [response\_headers\_policy\_id](#input\_response\_headers\_policy\_id) | The identifier for a response headers policy. | `string` | `null` | no |

@@ -23,11 +23,11 @@ resource "aws_cloudfront_origin_access_control" "this" {
 }
 
 resource "aws_cloudfront_distribution" "this" {
-  comment             = "Public Storage ${random_id.prefix.hex}"
-  enabled             = true
-  is_ipv6_enabled     = true
-  aliases             = var.aliases
-  price_class         = var.price_class
+  comment         = "Public Storage ${random_id.prefix.hex}"
+  enabled         = true
+  is_ipv6_enabled = true
+  aliases         = var.aliases
+  price_class     = var.price_class
 
   viewer_certificate {
     cloudfront_default_certificate = false
@@ -52,37 +52,19 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   default_cache_behavior {
-    allowed_methods  = var.default_cache_behavior.allowed_methods
-    cached_methods   = var.default_cache_behavior.cached_methods
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD"]
     target_origin_id = local.origin_id
 
     response_headers_policy_id = var.response_headers_policy_id
-    origin_request_policy_id = var.origin_request_policy_id
-    cache_policy_id = aws_cloudfront_cache_policy.this.id
+    origin_request_policy_id   = var.origin_request_policy_id
+    cache_policy_id            = aws_cloudfront_cache_policy.this.id
+    compress = true
 
-    compress               = var.default_cache_behavior.compress
     viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = var.default_cache_behavior.min_ttl
-    default_ttl            = var.default_cache_behavior.default_ttl
-    max_ttl                = var.default_cache_behavior.max_ttl
-  }
-
-  dynamic "custom_error_response" {
-    for_each = var.custom_error_responses
-
-    content {
-      error_code            = custom_error_response.value.error_code
-      error_caching_min_ttl = custom_error_response.value.error_caching_min_ttl
-      response_code         = custom_error_response.value.response_code
-      response_page_path    = custom_error_response.value.response_page_path
-    }
   }
 
   tags = merge(local.tags, { "resource.group" = "network" })
-}
-
-resource "aws_cloudfront_origin_access_identity" "this" {
-  comment = "Public Storage ${random_id.prefix.hex}"
 }
 
 resource "aws_iam_policy" "deployment_policy" {
@@ -183,9 +165,9 @@ resource "aws_cloudfront_cache_policy" "this" {
   name    = "cdn-public-storage-${random_id.prefix.hex}"
   comment = "Cache policy for Public Storage ${random_id.prefix.hex}"
 
-  min_ttl     = var.default_cache_behavior.min_ttl
-  default_ttl = var.default_cache_behavior.default_ttl
-  max_ttl     = var.default_cache_behavior.max_ttl
+  min_ttl     = 1
+  default_ttl = 86400
+  max_ttl     = 31536000
 
   parameters_in_cache_key_and_forwarded_to_origin {
     cookies_config {
