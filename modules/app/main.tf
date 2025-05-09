@@ -75,10 +75,10 @@ resource "aws_cloudfront_distribution" "this" {
     default_ttl            = var.default_cache_behavior.default_ttl
     max_ttl                = var.default_cache_behavior.max_ttl
 
-    dynamic "viewer_request" {
+    dynamic "lambda_function_association" {
       for_each = var.viewer_request_lambda_arn == null ? [] : [1]
 
-      lambda_function_association {
+      content {
         event_type = "viewer-request"
         lambda_arn = var.viewer_request_lambda_arn
       }
