@@ -43,6 +43,7 @@
 | <a name="input_response_headers_policy_id"></a> [response\_headers\_policy\_id](#input\_response\_headers\_policy\_id) | The identifier for a response headers policy. | `string` | `null` | no |
 | <a name="input_s3_bucket"></a> [s3\_bucket](#input\_s3\_bucket) | S3 bucket for Cloudfront origin. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags attached to Cloudfront distribution. | `map(string)` | `{}` | no |
+| <a name="input_viewer_request_lambda_arn"></a> [viewer\_request\_lambda\_arn](#input\_viewer\_request\_lambda\_arn) | ARN of the Lambda function to associate with the distribution on the ViewerRequest event. | `string` | `null` | no |
 
 ## Outputs
 

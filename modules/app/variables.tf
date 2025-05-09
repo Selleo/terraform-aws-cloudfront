@@ -104,3 +104,9 @@ variable "price_class" {
   description = "Cloudfront distribution's price class."
   default     = "PriceClass_100"
 }
+
+variable "viewer_request_lambda_arn" {
+  type        = string
+  description = "ARN of the Lambda function to associate with the distribution on the ViewerRequest event."
+  default     = null
+}

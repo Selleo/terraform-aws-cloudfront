@@ -74,6 +74,15 @@ resource "aws_cloudfront_distribution" "this" {
     min_ttl                = var.default_cache_behavior.min_ttl
     default_ttl            = var.default_cache_behavior.default_ttl
     max_ttl                = var.default_cache_behavior.max_ttl
+
+    dynamic "viewer_request" {
+      for_each = var.viewer_request_lambda_arn == null ? [] : [1]
+
+      lambda_function_association {
+        event_type = "viewer-request"
+        lambda_arn = var.viewer_request_lambda_arn
+      }
+    }
   }
 
   # make sure frontend router works by redirection missing paths to index.html
